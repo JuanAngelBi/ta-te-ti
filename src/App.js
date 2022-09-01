@@ -59,16 +59,16 @@ const App = () => {
     checkForWinner(newSquares);
   }
 
-  const endGame = (result, winningPositions) => { //Tenemos en]l result y posiciones ganadoras
-    setTurn(null);                                //No es turno de nadie
+  const endGame = (result, winningPositions) => { //Tenemos el resultado y posiciones ganadoras
+    setTurn(null);                                //No es turno de nadie y se bloquea
     if(result !== null) {                         //SI no hubo empate, 
       setScore({                                  //Se le suma puntos al que corresponda
         ...score,
-        [result]: score[result] + 1,              //
+        [result]: score[result] + 1,
       })
     }
-    setWinningSquares(winningPositions);
-    setTimeout(reset, 2000);
+    setWinningSquares(winningPositions);          //
+    setTimeout(reset, 2000);                      //
   }
   //Fin del juego
 
