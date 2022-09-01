@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from 'react';       //Para crear el estado de la app
 import './App.css';
 import Board from './components/Board/Board';
 import ScoreBoard from './components/ScoreBoard/ScoreBoard';
@@ -13,6 +13,7 @@ const winningPositions = [
   [0, 4, 8],
   [2, 4, 6],
 ];
+//Posibles posiciones ganadoras
 
 
 const App = () => {
@@ -24,12 +25,14 @@ const App = () => {
     X: 0,
     O: 0,
   });
+  //Estado base o inicial de la app
 
   const reset = () => {
     setTurn('X');
     setSquares(Array(9).fill(null));
     setWinningSquares([]);
   }
+  //Reset
 
   const checkForWinner = newSquares => {
     for(let i = 0; i < winningPositions.length; i++) {
@@ -39,13 +42,15 @@ const App = () => {
         return
       }
     }
+    //Si hay ganador
 
     if(!newSquares.includes(null)) {
-      endGame(null, Array.from(Array(10).keys()));
+      endGame(null, Array.from(Array(10).keys()));    //Se le pasa nulo y el array
       return
     }
     setTurn(turn === 'X' ? 'O' : 'X');
   }
+  //SI hay empate
 
   const handleClick = square => {
     let newSquares = [...squares];
@@ -54,17 +59,18 @@ const App = () => {
     checkForWinner(newSquares);
   }
 
-  const endGame = (result, winningPositions) => {
-    setTurn(null);
-    if(result !== null) {
-      setScore({
+  const endGame = (result, winningPositions) => { //Tenemos en]l result y posiciones ganadoras
+    setTurn(null);                                //No es turno de nadie
+    if(result !== null) {                         //SI no hubo empate, 
+      setScore({                                  //Se le suma puntos al que corresponda
         ...score,
-        [result]: score[result] + 1,
+        [result]: score[result] + 1,              //
       })
     }
     setWinningSquares(winningPositions);
     setTimeout(reset, 2000);
   }
+  //Fin del juego
 
   return (
     <div className="container">
